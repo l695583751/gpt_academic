@@ -93,6 +93,8 @@ services:
       AVAIL_LLM_MODELS:         '    ["gpt-3.5-turbo", "api2d-gpt-3.5-turbo", "gpt-4", "api2d-gpt-4", "sparkv2", "qianfan"]         '
       WEB_PORT:                 '    22303                                                                                          '
       ADD_WAIFU:                '    True                                                                                           '
+      API_URL_REDIRECT : '  {"https://api.openai.com/v1/chat/completions": "https://api.ngapi.top/v1/chat/completions"} '
+
       # THEME:                    '    Chuanhu-Small-and-Beautiful                                                                    '
       # DEFAULT_WORKER_NUM:       '    10                                                                                             '
       # AUTHENTICATION:           '    [("username", "passwd"), ("username2", "passwd2")]                                             '
