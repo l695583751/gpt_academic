@@ -25,53 +25,30 @@
 ## ===================================================
 
 ## ===================================================
-## 【方案零】 部署项目的全部能力（这个是包含cuda和latex的大型镜像。如果您网速慢、硬盘小或没有显卡，则不推荐使用这个）
+## 【方案一】 如果不需要运行本地模型（仅 chatgpt, azure, 星火, 千帆, claude 等在线大模型服务）
 ## ===================================================
 version: '3'
 services:
-  gpt_academic_full_capability:
-    image: ghcr.io/binary-husky/gpt_academic_with_all_capacity:master
+  gpt_academic_nolocalllms:
+    image: ghcr.io/binary-husky/gpt_academic_nolocal:master # (Auto Built by Dockerfile: docs/GithubAction+NoLocal)
     environment:
-      # 请查阅 `config.py`或者 github wiki 以查看所有的配置信息
-      API_KEY:                  '  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                        '
-      # USE_PROXY:                '  True                                                                       '
-      # proxies:                  '  { "http": "http://localhost:10881", "https": "http://localhost:10881", }   '
-      API_URL_REDIRECT : '  {"https://api.openai.com/v1/chat/completions": "https://api.ngapi.top/v1/chat/completions"} '
-      LLM_MODEL:                '  gpt-3.5-turbo                                                              '
-      AVAIL_LLM_MODELS:         '  ["gpt-3.5-turbo", "gpt-4", "qianfan", "sparkv2", "spark", "chatglm"]       '
-      BAIDU_CLOUD_API_KEY :     '  bTUtwEAveBrQipEowUvDwYWq                                                   '
-      BAIDU_CLOUD_SECRET_KEY :  '  jqXtLvXiVw6UNdjliATTS61rllG8Iuni                                           '
-      XFYUN_APPID:              '  53a8d816                                                                   '
-      XFYUN_API_SECRET:         '  MjMxNDQ4NDE4MzM0OSNlNjQ2NTlhMTkx                                           '
-      XFYUN_API_KEY:            '  95ccdec285364869d17b33e75ee96447                                           '
-      ENABLE_AUDIO:             '  False                                                                      '
-      DEFAULT_WORKER_NUM:       '  20                                                                         '
-      WEB_PORT:                 '  12345                                                                      '
-      ADD_WAIFU:                '  False                                                                      '
-      ALIYUN_APPKEY:            '  RxPlZrM88DnAFkZK                                                           '
-      THEME:                    '  Chuanhu-Small-and-Beautiful                                                '
-      ALIYUN_ACCESSKEY:         '  LTAI5t6BrFUzxRXVGUWnekh1                                                   '
-      ALIYUN_SECRET:            '  eHmI20SVWIwQZxCiTD2bGQVspP9i68                                             '
-      # LOCAL_MODEL_DEVICE:       '  cuda                                                                       '
+      # 请查阅 `config.py` 以查看所有的配置信息
+      API_KEY:                  '    sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx                                            '
+      USE_PROXY:                '    True                                                                                           '
+      API_URL_REDIRECT :                  '  {"https://api.openai.com/v1/chat/completions": "https://api.ngapi.top/v1/chat/completions"}  '
+      proxies:                  '    { "http": "socks5h://localhost:10880", "https": "socks5h://localhost:10880", }                 '
+      LLM_MODEL:                '    gpt-3.5-turbo                                                                                  '
+      AVAIL_LLM_MODELS:         '    ["gpt-3.5-turbo", "api2d-gpt-3.5-turbo", "gpt-4", "api2d-gpt-4", "sparkv2", "qianfan"]         '
+      WEB_PORT:                 '    22303                                                                                          '
+      ADD_WAIFU:                '    True                                                                                           '
+      # THEME:                    '    Chuanhu-Small-and-Beautiful                                                                    '
+      # DEFAULT_WORKER_NUM:       '    10                                                                                             '
+      # AUTHENTICATION:           '    [("username", "passwd"), ("username2", "passwd2")]                                             '
 
-    # 加载英伟达显卡运行时
-    # runtime: nvidia
-    # deploy:
-    #     resources:
-    #       reservations:
-    #         devices:
-    #           - driver: nvidia
-    #             count: 1
-    #             capabilities: [gpu]
-
-    # 【WEB_PORT暴露方法1: 适用于Linux】与宿主的网络融合
+    # 与宿主的网络融合
     network_mode: "host"
 
-    # 【WEB_PORT暴露方法2: 适用于所有系统】端口映射
-    # ports:
-    #   - "12345:12345"  # 12345必须与WEB_PORT相互对应
-
-    # 启动容器后，运行main.py主程序
+    # 不使用代理网络拉取最新代码
     command: >
       bash -c "python3 -u main.py"
 
