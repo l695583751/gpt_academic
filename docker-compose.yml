@@ -34,9 +34,9 @@ services:
     environment:
       # 请查阅 `config.py` 以查看所有的配置信息
       API_KEY:                  '    sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx                                            '
-      USE_PROXY:                '    True                                                                                           '
+      USE_PROXY:                '    False                                                                                           '
       API_URL_REDIRECT :                  '  {"https://api.openai.com/v1/chat/completions": "https://api.ngapi.top/v1/chat/completions"}  '
-      proxies:                  '    { "http": "socks5h://localhost:10880", "https": "socks5h://localhost:10880", }                 '
+      #proxies:                  '    { "http": "socks5h://localhost:10880", "https": "socks5h://localhost:10880", }                 '
       LLM_MODEL:                '    gpt-3.5-turbo                                                                                  '
       AVAIL_LLM_MODELS:         '    ["gpt-3.5-turbo", "api2d-gpt-3.5-turbo", "gpt-4", "api2d-gpt-4", "sparkv2", "qianfan"]         '
       WEB_PORT:                 '    22303                                                                                          '
