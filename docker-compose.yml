@@ -46,7 +46,8 @@ services:
       # AUTHENTICATION:           '    [("username", "passwd"), ("username2", "passwd2")]                                             '
 
     # 与宿主的网络融合
-    network_mode: "host"
+    ports:
+      - "12345:12345"
 
     # 不使用代理网络拉取最新代码
     command: >
